@@ -14,7 +14,7 @@ class TrackListViewController: UIViewController, UITableViewDataSource, UITableV
     //    - 트랙 리스트 만들기
     //    - TableViewDelegate, TableViewDatasource
     //    - 커스텀 테이블 뷰셀
-    //    - 뷰 구성하기
+    //    - 뷰 구성
     
     var musicTrackList: [Track] = []
     
@@ -65,7 +65,6 @@ class TrackListViewController: UIViewController, UITableViewDataSource, UITableV
         print("--> \(indexPath.row)")
         performSegue(withIdentifier: "ShowPlayer", sender: indexPath.row)
     }
-
 }
 
 class TrackCell: UITableViewCell {
