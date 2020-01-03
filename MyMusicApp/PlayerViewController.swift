@@ -79,6 +79,21 @@ class PlayerViewController: UIViewController {
     
     func updateTime(time: CMTime) {
         print(time.seconds)
+        // currentTime label, totalduration label, slider
+        currentTimeLabel.text = secondsToString(sec: currentTime)                 // 3.1234초 >> 00:03
+        totalDurationTimeLabel.text = secondsToString(sec: totalDurationTime)     // 39.2045 >> 00:39
+        
+        if isSeeking == false  {
+            timeSlider.value = Float(currentTime/totalDurationTime)
+        }
+    }
+    
+    func secondsToString(sec: Double) -> String {
+        guard sec.isNaN == false else { return "00:00" }
+        let totalSeconds = Int(sec)
+        let min = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d", min, seconds)
     }
     
     func play() {
@@ -111,4 +126,21 @@ class PlayerViewController: UIViewController {
         }
     }
     
+    var isSeeking = false
+    @IBAction func dragging(_ sender: UISlider) {
+        isSeeking = true
+    }
+    
+    @IBAction func endDragging(_ sender: UISlider) {
+        isSeeking = false
+        seek(to: Double(sender.value))
+    }
+    
+    @IBAction func close() {
+        pause()
+        avplayer?.replaceCurrentItem(with: nil)
+        avplayer = nil
+        
+        dismiss(animated: true, completion: nil)
+    }
 }
