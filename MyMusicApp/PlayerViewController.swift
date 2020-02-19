@@ -78,10 +78,10 @@ class PlayerViewController: UIViewController {
     }
     
     func updateTime(time: CMTime) {
-        print(time.seconds)
+        // print(time.seconds)
         // currentTime label, totalduration label, slider
         currentTimeLabel.text = secondsToString(sec: currentTime)                 // 3.1234초 >> 00:03
-        totalDurationTimeLabel.text = secondsToString(sec: totalDurationTime)     // 39.2045 >> 00:39
+        totalDurationTimeLabel.text = secondsToString(sec: totalDurationTime)     // 39.2045초 >> 00:39
         
         if isSeeking == false  {
             timeSlider.value = Float(currentTime/totalDurationTime)
@@ -91,8 +91,8 @@ class PlayerViewController: UIViewController {
     func secondsToString(sec: Double) -> String {
         guard sec.isNaN == false else { return "00:00" }
         let totalSeconds = Int(sec)
-        let min = totalSeconds / 60
-        let seconds = totalSeconds % 60
+        let min = totalSeconds / 60             //몫
+        let seconds = totalSeconds % 60         //나머지
         return String(format: "%02d:%02d", min, seconds)
     }
     
@@ -141,6 +141,6 @@ class PlayerViewController: UIViewController {
         avplayer?.replaceCurrentItem(with: nil)
         avplayer = nil
         
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil) 
     }
 }
